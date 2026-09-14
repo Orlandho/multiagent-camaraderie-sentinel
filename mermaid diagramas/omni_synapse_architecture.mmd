@@ -1,0 +1,27 @@
+graph TD
+    subgraph PC_Titan ["💻 PC Titan (Cerebro Central / ML - 192.168.1.105)"]
+        ATC["Atenea & Hermes (Estrategia y Orquestación)"]
+        FASTAPI["Master Orchestrator (FastAPI + WebSockets)"]
+        GPU_ENG["Motor de Inferencia Local (RTX 5060 Ti)"]
+        JULES_CODE["Módulos Validados de Jules (Telemetry & CyberDefense)"]
+    end
+
+    subgraph Bus_Datos ["🛡️ Enlace Seguro (Bitdefender Compliant)"]
+        WS["Canal WebSocket Bidireccional Cifrado"]
+        GH_MCP["GitHub MCP Sync (Issues, PRs y Tareas)"]
+    end
+
+    subgraph Laptop_HP ["💻 Laptop HP (Nodo Centinela - 192.168.1.108)"]
+        WORKER["Worker Node (Ryzen 5 7520U - 8 hilos)"]
+        SMCMA["SMCMA Telemetry Sentinel (Sensores & Heartbeat)"]
+        VM_AUDIT["Auditor de Tráfico de VMs (Ubuntu, Fedora, Kali)"]
+    end
+
+    ATC -->|Balancea Cargas| FASTAPI
+    FASTAPI -->|GPU Tasks| GPU_ENG
+    FASTAPI <-->|Telemetría y Tareas en Streaming| WS
+    WS <-->|Conexión Persistente| WORKER
+    WORKER -->|Monitoreo Local| SMCMA
+    WORKER -->|Recolección de Logs| VM_AUDIT
+    ATC -->|Delega Módulos Complejos| GH_MCP
+    GH_MCP -->|Issues & PRs| JULES_CODE

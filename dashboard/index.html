@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI-SYNAPSE | Centro de Control</title>
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent-green: #00ffcc;
+            --accent-pink: #ff00ff;
+            --accent-blue: #00bfff;
+        }
+        body {
+            margin: 0; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #090a0f, #1a1525, #020617); color: #fff; height: 100vh;
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+        header {
+            text-align: center; margin-bottom: 30px; animation: glow 2s ease-in-out infinite alternate;
+        }
+        h1 { margin: 0; font-size: 2.8rem; text-shadow: 0 0 15px var(--accent-blue); letter-spacing: 2px; }
+        p { color: #8892b0; margin-top: 5px; font-size: 1.1rem; }
+        .dashboard {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; flex: 1; max-width: 1400px; margin: 0 auto; width: 100%;
+        }
+        .glass-panel {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px; padding: 30px; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            display: flex; flex-direction: column; transition: transform 0.3s ease;
+        }
+        .glass-panel:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.2); }
+        .glass-panel h2 { margin-top: 0; color: var(--accent-blue); border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
+        .metric { font-size: 1.2rem; margin: 15px 0; display: flex; justify-content: space-between; align-items: center;}
+        .value { font-weight: bold; font-family: monospace; font-size: 1.4rem;}
+        .log-box { 
+            flex: 1; background: rgba(0,0,0,0.4); border-radius: 10px; padding: 15px; 
+            overflow-y: auto; font-family: monospace; font-size: 0.95rem; margin-top: 20px;
+            border: 1px solid rgba(0, 255, 204, 0.2); color: #00ffcc; text-shadow: 0 0 5px rgba(0,255,204,0.5);
+        }
+        .status-indicator { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--accent-green); box-shadow: 0 0 10px var(--accent-green); margin-right: 10px;}
+        .status-blink { animation: blink 1.5s infinite; }
+        @keyframes glow { from { text-shadow: 0 0 10px #00bfff; } to { text-shadow: 0 0 20px #00bfff, 0 0 30px #00ffcc; } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span class="status-indicator"></span>OMNI-SYNAPSE</h1>
+        <p>Centro de Control Multi-Agente & Ciber-Resiliencia (Titan ↔ HP Laptop)</p>
+    </header>
+    <div class="dashboard">
+        <!-- NODO TITAN -->
+        <div class="glass-panel">
+            <h2>🧠 PC Titan (Motor IA Central)</h2>
+            <div class="metric"><span>Estado del Clúster:</span> <span class="value" style="color: var(--accent-green);">Online</span></div>
+            <div class="metric"><span>Carga RTX 5060 Ti:</span> <span class="value" id="rtx-load" style="color: var(--accent-pink);">24.5%</span></div>
+            <div class="metric"><span>Latencia Inferencia IA:</span> <span class="value" id="ai-inf">12 ms</span></div>
+            <div class="metric"><span>Modelos de IA:</span> <span class="value">Pro / Inherit</span></div>
+            <div class="metric"><span>Agentes Locales:</span> <span class="value" style="color: #cbd5e1;">Atenea, Hermes</span></div>
+        </div>
+
+        <!-- NODO LAPTOP -->
+        <div class="glass-panel">
+            <h2>💻 HP Laptop (Nodo Centinela)</h2>
+            <div class="metric"><span>Estado de Sincronización:</span> <span class="value" style="color: var(--accent-green);">SFTP Sincronizado</span></div>
+            <div class="metric"><span>Telemetría de Red:</span> <span class="value" id="telemetry-rate">145 pkt/s</span></div>
+            <div class="metric"><span>Análisis Heurístico:</span> <span class="value" id="cyber-alerts">Seguro</span></div>
+            <div class="metric"><span>Delegado de Código:</span> <span class="value" style="color: #cbd5e1;">Jules (Issue #3)</span></div>
+            <div class="metric"><span>Último PR:</span> <span class="value">#2 Fusionado</span></div>
+        </div>
+
+        <!-- INDICE DE CAMARADERIA & LOGS -->
+        <div class="glass-panel">
+            <h2>🤝 Índice de Camaradería</h2>
+            <div class="metric"><span>Sinergia de Equipo:</span> <span class="value" style="color: var(--accent-pink); text-shadow: 0 0 10px var(--accent-pink);">100% Óptima</span></div>
+            <div class="metric"><span>Archivos Compartidos:</span> <span class="value">3</span></div>
+            <div class="log-box" id="live-logs">
+                <span style="color:#fff;">[Sistema]</span> Inicializando OMNI-SYNAPSE...<br>
+                <span style="color:#ff00ff;">[Atenea]</span> Renderizando Interfaz Glassmorphism.<br>
+                <span style="color:#00ffcc;">[Hermes]</span> Preparando inyección de endpoints...<br>
+                <span style="color:#cbd5e1;">[Jules]</span> Trabajando en PR #3 (AI & Cyber-Defense).<br>
+                <span class="status-blink" style="color:#00bfff;">Esperando telemetría en vivo...</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulación temporal de telemetría mientras Hermes conecta los endpoints
+        setInterval(() => {
+            document.getElementById('rtx-load').innerText = (Math.random() * (55 - 20) + 20).toFixed(1) + '%';
+            document.getElementById('ai-inf').innerText = Math.floor(Math.random() * (18 - 8) + 8) + ' ms';
+            document.getElementById('telemetry-rate').innerText = Math.floor(Math.random() * (300 - 150) + 150) + ' pkt/s';
+        }, 1500);
+    </script>
+</body>
+</html>
