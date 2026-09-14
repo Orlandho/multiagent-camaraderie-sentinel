@@ -1,0 +1,23 @@
+sequenceDiagram
+    autonumber
+    actor Team as Equipo (Orlando/Antigravity)
+    participant GH as GitHub (Repositorio)
+    participant Jules as Jules (Developer)
+    participant Atenea as Atenea (Reviewer)
+    
+    Team->>GH: Crea Issue con etiqueta 'jules'
+    GH->>Jules: Notifica nueva tarea asignada
+    Jules->>Jules: Analiza requerimientos y diseña solución
+    Jules->>GH: Hace push del código y abre Pull Request (PR)
+    GH->>Atenea: Solicita revisión rigurosa (Review Request)
+    
+    alt Revisión Aprobada
+        Atenea->>GH: Aprueba PR (Approve)
+        GH->>Team: Notifica PR listo para Merge
+        Team->>GH: Ejecuta Merge a rama principal
+    else Cambios Requeridos
+        Atenea->>GH: Solicita ajustes (Request Changes)
+        GH->>Jules: Notifica feedback de Atenea
+        Jules->>GH: Actualiza PR con correcciones
+        GH->>Atenea: Solicita nueva revisión
+    end

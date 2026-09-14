@@ -1,0 +1,29 @@
+flowchart TD
+    %% Inicio del ciclo
+    Start(("Inicio\nCiclo Telemétrico"))
+    
+    %% Captura de datos
+    subgraph Captura["Sensores de Monitoreo"]
+        NetLat["🌐 Métricas de Red\n(Latencia, Ancho de Banda)"]
+        HeartB["💓 Heartbeat\n(Disponibilidad de Agentes)"]
+        CamIdx["🤝 Índice de Camaradería\n(Interacciones, Sentimiento)"]
+    end
+    
+    Start --> NetLat
+    Start --> HeartB
+    Start --> CamIdx
+    
+    %% Procesamiento
+    NetLat --> Processor["⚙️ Motor de Análisis Sentinel"]
+    HeartB --> Processor
+    CamIdx --> Processor
+    
+    %% Toma de decisiones
+    Processor --> Eval{"¿Anomalía\nDetectada?"}
+    
+    Eval -->|Sí| Alert["🚨 Generar Alerta Crítica"]
+    Eval -->|No| Log["📝 Registrar en Histórico"]
+    
+    Alert --> Notify["Notificar a Antigravity y Hermes"]
+    Log --> End(("Fin\nCiclo"))
+    Notify --> End

@@ -1,0 +1,18 @@
+flowchart TD
+    %% Definición de Nodos
+    Orlando["👨‍💻 Orlando Dorival\n(Líder de Proyecto)"]
+    Antigravity["🚀 Antigravity\n(Orquestador Principal)"]
+    Atenea["🦉 Atenea\n(Arquitecta y QA)"]
+    Hermes["⚡ Hermes\n(DevOps y Automatización)"]
+    Jules["🛠️ Jules\n(Desarrollador Experto)"]
+    SMCMA[("Módulo SMCMA\n(Base de Conocimiento)")]
+
+    %% Relaciones
+    Orlando -->|Define Visión| Antigravity
+    Antigravity -->|Delega Arquitectura| Atenea
+    Antigravity -->|Delega Infraestructura| Hermes
+    Antigravity -->|Delega Implementación| Jules
+    
+    Atenea -->|Revisa y Aprueba| SMCMA
+    Hermes -->|Despliega| SMCMA
+    Jules -->|Construye| SMCMA
